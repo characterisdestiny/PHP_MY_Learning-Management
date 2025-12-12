@@ -20,6 +20,44 @@ studyhub
    └─ db.php          # MySQL 연결 설정 (localhost:3307, root, studyhub DB)
 ```
 
+## DB 구조
+
+```
+-- 1) 강의 / 스터디 관리 테이블
+CREATE TABLE IF NOT EXISTS lectures (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    heading VARCHAR(255) NOT NULL,
+    subject  VARCHAR(255) DEFAULT NULL,
+    instructor VARCHAR(255) DEFAULT NULL,
+    schedule VARCHAR(255) DEFAULT NULL,
+    progress TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- 2) 책 / 자료 정리 테이블
+CREATE TABLE IF NOT EXISTS bookshelf (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255),
+    tags VARCHAR(255),
+    notes TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+
+);
+
+-- 3) 할 일(To-Do) 관리 테이블
+CREATE TABLE todos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    task VARCHAR(255) NOT NULL,
+    due_date DATE DEFAULT NULL,
+    priority ENUM('낮음', '보통', '높음') DEFAULT '보통',
+    category VARCHAR(50) DEFAULT '개인',
+    done BOOLEAN DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+```
+
 주요 기능 요약
 
 대시보드 (index.php)
